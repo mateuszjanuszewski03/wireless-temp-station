@@ -182,7 +182,7 @@ volatile uint8_t WakeCounter = 0;
 
 int main(void)
 {	
-	ccp_write_io((void*)&CLKCTRL.MCLKCTRLB, 0x1 );// Prescaler /3 enabled: 10 MHz / 3 = 3.33 MHz
+	ccp_write_io((void*)&CLKCTRL.MCLKCTRLB, 0x01 );// 20 MHz / 2 = 10MHz
 	//Function for setting pins -->
 	for (uint8_t i = 0; i < 8; i++) {
 		(&PORTA.PIN0CTRL)[i] = PORT_PULLUPEN_bm; 
