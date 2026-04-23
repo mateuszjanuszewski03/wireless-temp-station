@@ -70,33 +70,109 @@
 
 
 
-//Function TWI -->
+/**
+ * @brief Initializes TWI (I2C) peripheral in master mode at 100 kHz.
+ */
 void TwiInit(void);
-int TwiWrite(uint8_t Data);//write the data into the registry twi.mdata
-int TwiStart(uint8_t Addr, uint8_t Read);//if 1 read
-void TwiStop(void);// bus release
-int TwiRead(bool Ack);// Read byte from bus, send ACK if ack=true
-void TwiRepeatedStart(void);// Issue repeated start condition
-//<--
 
-int16_t Mcp9808ReadTemp(void);// the function responsible for reading the temperature from the MCP9808
+/**
+ * @brief Sends a START condition and slave address on the TWI bus.
+ * @param Addr  7-bit slave address.
+ * @param Read  1 for read operation, 0 for write.
+ * @return      1 on success, 0 on timeout or bus error.
+ */
+int TwiWrite(uint8_t Data);
 
-//Function SPI -->
+/**
+ * @brief Writes one byte to the TWI bus.
+ * @param Data  Byte to transmit.
+ * @return      1 on success, 0 on NACK or timeout.
+ */
+int TwiStart(uint8_t Addr, uint8_t Read);
+
+/**
+ * @brief Sends a STOP condition and releases the TWI bus.
+ */
+void TwiStop(void);
+
+/**
+ * @brief Reads one byte from the TWI bus.
+ * @param Ack  true to send ACK (more bytes follow), false to send NACK (last byte).
+ * @return     Received byte, or 0 on timeout.
+ */
+int TwiRead(bool Ack);
+
+/**
+ * @brief Issues a repeated START condition without releasing the bus.
+ */
+void TwiRepeatedStart(void);
+
+/**
+ * @brief Reads ambient temperature from MCP9808 sensor.
+ * @return Raw 13-bit temperature value (resolution: 0.0625 deg C per LSB).
+ *         Returns 0 on communication error.
+ */
+int16_t Mcp9808ReadTemp(void);
+
+/**
+ * @brief Initializes SPI peripheral in master mode at ~5 MHz.
+ */
 void SpiInit(void);
+
+/**
+ * @brief Transmits and receives one byte over SPI (full duplex).
+ * @param Data  Byte to send.
+ * @return      Byte received during transmission.
+ */
 uint8_t SpiData(uint8_t Data);
 
-//<--
-
-//Function NRF24l01 -->
+/**
+ * @brief Writes a single byte to an NRF24L01 register.
+ * @param Reg  Register address.
+ * @param Val  Value to write.
+ */
 void NrfWriteReg(unsigned char Reg, unsigned char val);
-unsigned char NrfReadReg(unsigned char Reg);
-void Nrf24ConfigTX(unsigned char address[]);
-void NrfUpTX(void);
-void NrfSend(unsigned char Payload[],int Length);
-int NrfAck(void);
-void NrfResetStatus(void);
-//<--
 
+/**
+ * @brief Reads a single byte from an NRF24L01 register.
+ * @param Reg  Register address.
+ * @return     Register value.
+ */
+unsigned char NrfReadReg(unsigned char Reg);
+
+/**
+ * @brief Configures NRF24L01 in TX mode with given pipe address.
+ * @param address  Pointer to 5-byte pipe address array.
+ */
+void Nrf24ConfigTX(unsigned char address[]);
+
+/**
+ * @brief Switches NRF24L01 to TX mode by updating CONFIG register.
+ */
+void NrfUpTX(void);
+
+/**
+ * @brief Loads payload into TX FIFO and triggers transmission.
+ * @param Payload  Pointer to data buffer.
+ * @param Length   Number of bytes to send.
+ */
+void NrfSend(unsigned char Payload[],int Length);
+
+/**
+ * @brief Checks whether last transmission was acknowledged.
+ * @return 1 if TX_DS flag is set (ACK received), 0 otherwise.
+ */
+int NrfAck(void);
+
+/**
+ * @brief Clears RX_DR, TX_DS and MAX_RT flags in STATUS register.
+ */
+void NrfResetStatus(void);
+
+/**
+ * @brief Initializes RTC Periodic Interrupt Timer with 1-second period.
+ *        Uses internal 32.768 kHz oscillator.
+ */
 void RtcPitInit(void);
 
 
