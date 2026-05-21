@@ -1,7 +1,9 @@
 # wireless-temp-station
 
 A wireless temperature monitoring system built from scratch using two AVR microcontroller nodes communicating over a 2.4 GHz RF link. The transmitter node reads ambient temperature from a precision sensor and broadcasts it as a compact binary payload; the receiver node decodes the data and renders it in real time on an OLED display. The design prioritises low power consumption on the sensor side, achieving a sleep-dominant duty cycle of roughly 10 seconds per measurement.
-
+<img width="1536" height="2048" alt="IMG_2935" src="https://github.com/user-attachments/assets/a32f6853-e252-467f-8c2b-e8cd589f3e87" />
+<img width="1536" height="2048" alt="IMG_2935" src="https://github.com/user-attachments/assets/43f4f82c-bc29-436f-a89e-bb850a25377a" />
+<img width="1536" height="2048" alt="IMG_2931" src="https://github.com/user-attachments/assets/e1f4637c-b8cd-4111-a9ea-a18a8cbf0cd5" />
 ---
 
 ## System Overview
